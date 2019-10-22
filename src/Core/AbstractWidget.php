@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Core;
+namespace Widget\Core;
 
 use App\Entity\Category;
 use App\Model\WidgetInterface;
