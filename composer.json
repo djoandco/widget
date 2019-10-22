@@ -1,0 +1,29 @@
+{
+  "name": "djoandco/widget",
+  "type": "library",
+  "description": "Internal project",
+  "keywords": ["widget", "djoandco"],
+  "license": "MIT",
+  "require": {
+  },
+  "require-dev": {
+  },
+  "autoload": {
+    "psr-4": {
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "GuzzleHttp\\Tests\\": "Tests/",
+      "Tests\\": "Tests/"
+    }
+  },
+  "suggest": {
+    "psr/log": "Required for using the Log middleware"
+  },
+  "extra": {
+    "branch-alias": {
+      "dev-master": "1.0.0-dev"
+    }
+  }
+}
