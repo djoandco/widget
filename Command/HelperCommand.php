@@ -26,6 +26,7 @@ class HelperCommand extends Command
     protected function configure()
     {
         $this
+            ->setName('dev:helper')
             ->setDescription('Help you to understand everything. :)')
         ;
     }
