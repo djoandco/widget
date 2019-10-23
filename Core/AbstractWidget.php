@@ -36,26 +36,11 @@ abstract class AbstractWidget implements WidgetInterface
      */
     protected $entityManager;
 
-    /**
-     * @var JobRepository
-     */
-    protected $jobRepository;
-
     protected $config = null;
 
     protected $params = [];
 
     private $widgetName;
-
-    /**
-     * @var CategoryRepository
-     */
-    protected $categoryRepository;
-
-    /**
-     * @var StepRepository
-     */
-    protected $stepRepository;
 
     /**
      * @var FormFactory
@@ -77,14 +62,10 @@ abstract class AbstractWidget implements WidgetInterface
      * @param Environment $environment
      * @param EntityManagerInterface $entityManager
      * @param JobRepository $jobRepository
-     * @param CategoryRepository $categoryRepository
      */
     public function __construct(
         Environment $environment,
         EntityManagerInterface $entityManager,
-        JobRepository $jobRepository,
-        CategoryRepository $categoryRepository,
-        StepRepository $stepRepository,
         FormFactoryInterface $formFactory,
         RequestStack $requestStack,
         RouterInterface $router
@@ -94,9 +75,6 @@ abstract class AbstractWidget implements WidgetInterface
         $this->environment = $environment;
 
         $this->entityManager = $entityManager;
-        $this->jobRepository = $jobRepository;
-        $this->categoryRepository = $categoryRepository;
-        $this->stepRepository = $stepRepository;
         $this->formFactory = $formFactory;
         $this->requestStack = $requestStack;
         $this->router = $router;
