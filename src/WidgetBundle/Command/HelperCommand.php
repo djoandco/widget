@@ -1,6 +1,6 @@
 <?php
 
-namespace Widget\Command;
+namespace WidgetBundle\Command;
 
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
@@ -26,7 +26,6 @@ class HelperCommand extends Command
     protected function configure()
     {
         $this
-            ->setName('dev:helper')
             ->setDescription('Help you to understand everything. :)')
         ;
     }
@@ -72,14 +71,34 @@ class HelperCommand extends Command
 
                         $widgetName = $helper->ask($input, $output, $question);
 
+                        if (!file_exists('src/Widget/')) {
+                            mkdir('src/Widget/');
+                        }
+
                         $ClassWidgetHandle = fopen('src/Widget/'. $widgetName . '.php', 'w') or die('Cannot open file:  '.$widgetName); //implicitly creates file
                         fwrite($ClassWidgetHandle, $this->getDataClassWidget($widgetName));
+
+                        if (!file_exists('templates/widget/')) {
+                            mkdir('templates/widget/');
+                        }
 
                         $templateWidgetHandle = fopen('templates/widget/'. $widgetName . '.html.twig', 'w') or die('Cannot open file:  '.$widgetName); //implicitly creates file
                         fwrite($templateWidgetHandle, "<p class='". strtolower($widgetName) ."'>I'm here dude, my name is " . $widgetName . "</p>");
 
+                        if (!file_exists('public/css/')) {
+                            mkdir('public/css/');
+                        }
+
+                        if (!file_exists('public/css/widget/')) {
+                            mkdir('public/css/widget/');
+                        }
+
                         $cssWidgetHandle = fopen('public/css/widget/'. $widgetName . '.css', 'w') or die('Cannot open file:  '.$widgetName); //implicitly creates file
                         fwrite($cssWidgetHandle, $this->getDataCssWidget($widgetName));
+
+                        if (!file_exists('config/widget/')) {
+                            mkdir('config/widget/');
+                        }
 
                         $configWidgetHandle = fopen('config/widget/'. $widgetName . '.yaml', 'w') or die('Cannot open file:  '.$widgetName); //implicitly creates file
                         fwrite($configWidgetHandle, $this->getDataConfigWidget());

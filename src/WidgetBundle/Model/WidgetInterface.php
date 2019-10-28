@@ -1,6 +1,6 @@
 <?php
 
-namespace Widget\Model;
+namespace WidgetBundle\Model;
 
 interface WidgetInterface
 {

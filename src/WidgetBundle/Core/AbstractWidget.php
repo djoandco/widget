@@ -1,9 +1,10 @@
 <?php
 
-namespace Widget\Core;
+namespace WidgetBundle\Core;
 
 use App\Entity\Category;
-use App\Model\WidgetInterface;
+use Doctrine\ODM\MongoDB\DocumentManager;
+use WidgetBundle\Model\WidgetInterface;
 use App\Repository\CategoryRepository;
 use App\Repository\JobRepository;
 use App\Repository\StepRepository;
@@ -36,6 +37,8 @@ abstract class AbstractWidget implements WidgetInterface
      */
     protected $entityManager;
 
+    protected $documentManager;
+
     protected $config = null;
 
     protected $params = [];
@@ -62,13 +65,15 @@ abstract class AbstractWidget implements WidgetInterface
      * @param Environment $environment
      * @param EntityManagerInterface $entityManager
      * @param JobRepository $jobRepository
+     * @throws \Doctrine\Common\Annotations\AnnotationException
      */
     public function __construct(
         Environment $environment,
         EntityManagerInterface $entityManager,
         FormFactoryInterface $formFactory,
         RequestStack $requestStack,
-        RouterInterface $router
+        RouterInterface $router,
+        DocumentManager $documentManager
     )
     {
         $this->widgetName = static::WIDGET_NAME;
