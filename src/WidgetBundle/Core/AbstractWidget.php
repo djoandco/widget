@@ -4,7 +4,7 @@ namespace WidgetBundle\Core;
 
 use App\Entity\Category;
 use Doctrine\ODM\MongoDB\DocumentManager;
-use WidgetBundle\Model\WidgetInterface;
+use Djoandco\WidgetBundle\Model\WidgetInterface;
 use App\Repository\CategoryRepository;
 use App\Repository\JobRepository;
 use App\Repository\StepRepository;
@@ -91,9 +91,9 @@ abstract class AbstractWidget implements WidgetInterface
     protected function getConfig()
     {
 
-        //Get your config widget file in "config/widget/widget_name.yaml"
+        //Get your config widget-bundle file in "config/widget-bundle/widget_name.yaml"
         try {
-            $this->config = Yaml::parseFile('../config/widget/' . $this->widgetName . '.yaml');
+            $this->config = Yaml::parseFile('../config/widget-bundle/' . $this->widgetName . '.yaml');
             $this->getFiles();
         } catch (ParseException $exception) {
             printf('Unable to parse the YAML string: %s', $exception->getMessage());
@@ -111,13 +111,13 @@ abstract class AbstractWidget implements WidgetInterface
      */
     public function render($options = [])
     {
-        //According to your file in "config/widget/widget_name.yaml"
-        //You can set the key enable to false to desactivate the widget's rendering
-        if (isset($this->config['widget']['enable']) && false === $this->config['widget']['enable']){
+        //According to your file in "config/widget-bundle/widget_name.yaml"
+        //You can set the key enable to false to desactivate the widget-bundle's rendering
+        if (isset($this->config['widget-bundle']['enable']) && false === $this->config['widget-bundle']['enable']){
             return null;
         }
 
-        return $this->environment->render('widget/' . $this->widgetName . '.html.twig', [
+        return $this->environment->render('widget-bundle/' . $this->widgetName . '.html.twig', [
             'params' => $this->params
         ]);
     }
@@ -136,21 +136,21 @@ abstract class AbstractWidget implements WidgetInterface
      */
     private function getFiles()
     {
-        if (isset($this->config['widget']['loader']) && in_array('css', $this->config['widget']['loader'])) {
+        if (isset($this->config['widget-bundle']['loader']) && in_array('css', $this->config['widget-bundle']['loader'])) {
             $css = '';
             $handle = '';
 
             $file = $this->widgetName . '.css';
 
             // open the "css" directory
-            if ($handle = opendir('css/widget')) {
-                if ((file_exists ('css/widget/' .$file))) {
+            if ($handle = opendir('css/widget-bundle')) {
+                if ((file_exists ('css/widget-bundle/' .$file))) {
                     // list directory contents
                     while (false !== ($file = readdir($handle))) {
                         // only grab file names
-                        if (is_file('css/widget/' . $file)) {
+                        if (is_file('css/widget-bundle/' . $file)) {
                             // insert HTML code for loading css files
-                            $css .= '<link rel="stylesheet" href="/css/widget/' . $file .
+                            $css .= '<link rel="stylesheet" href="/css/widget-bundle/' . $file .
                                 '" type="text/css" media="all" />' . "\n";
                         }
                     }
@@ -158,7 +158,7 @@ abstract class AbstractWidget implements WidgetInterface
                     echo $css;
 
                 } else {
-                    throw new Exception("According to '/config/widget/" . $this->widgetName .".yaml, you have to create the ". $file . " in /public/css/widget");
+                    throw new Exception("According to '/config/widget-bundle/" . $this->widgetName .".yaml, you have to create the ". $file . " in /public/css/widget-bundle");
                 }
             }
 

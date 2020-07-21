@@ -36,8 +36,8 @@ class HelperCommand extends Command
 
         $helper = $this->getHelper('question');
         $question = new ChoiceQuestion(
-            'Please select what you need to know (defaults to widget)',
-            ['widget'],
+            'Please select what you need to know (defaults to widget-bundle)',
+            ['widget-bundle'],
             0
         );
         $question->setErrorMessage('%s is invalid.');
@@ -45,7 +45,7 @@ class HelperCommand extends Command
         $doc = $helper->ask($input, $output, $question);
 
         switch ($doc) {
-            case 'widget':
+            case 'widget-bundle':
                 $question = new ChoiceQuestion(
                     'Please select what you need to do (defaults to create)',
                     ['create'],
@@ -56,7 +56,7 @@ class HelperCommand extends Command
 
                 switch ($whatToDo) {
                     case 'create':
-                        $question = new Question('Please, chose your widget\'s name: ', 'AcmeWidget');
+                        $question = new Question('Please, chose your widget-bundle\'s name: ', 'AcmeWidget');
                         $question->setValidator(function ($answer) {
                             if (!is_string($answer) || 'Widget' !== substr($answer, -6) || 'AcmeWidget' === $answer) {
                                 throw new \RuntimeException(
@@ -78,29 +78,29 @@ class HelperCommand extends Command
                         $ClassWidgetHandle = fopen('src/Widget/'. $widgetName . '.php', 'w') or die('Cannot open file:  '.$widgetName); //implicitly creates file
                         fwrite($ClassWidgetHandle, $this->getDataClassWidget($widgetName));
 
-                        if (!file_exists('templates/widget/')) {
-                            mkdir('templates/widget/');
+                        if (!file_exists('templates/widget-bundle/')) {
+                            mkdir('templates/widget-bundle/');
                         }
 
-                        $templateWidgetHandle = fopen('templates/widget/'. $widgetName . '.html.twig', 'w') or die('Cannot open file:  '.$widgetName); //implicitly creates file
+                        $templateWidgetHandle = fopen('templates/widget-bundle/'. $widgetName . '.html.twig', 'w') or die('Cannot open file:  '.$widgetName); //implicitly creates file
                         fwrite($templateWidgetHandle, "<p class='". strtolower($widgetName) ."'>I'm here dude, my name is " . $widgetName . "</p>");
 
                         if (!file_exists('public/css/')) {
                             mkdir('public/css/');
                         }
 
-                        if (!file_exists('public/css/widget/')) {
-                            mkdir('public/css/widget/');
+                        if (!file_exists('public/css/widget-bundle/')) {
+                            mkdir('public/css/widget-bundle/');
                         }
 
-                        $cssWidgetHandle = fopen('public/css/widget/'. $widgetName . '.css', 'w') or die('Cannot open file:  '.$widgetName); //implicitly creates file
+                        $cssWidgetHandle = fopen('public/css/widget-bundle/'. $widgetName . '.css', 'w') or die('Cannot open file:  '.$widgetName); //implicitly creates file
                         fwrite($cssWidgetHandle, $this->getDataCssWidget($widgetName));
 
-                        if (!file_exists('config/widget/')) {
-                            mkdir('config/widget/');
+                        if (!file_exists('config/widget-bundle/')) {
+                            mkdir('config/widget-bundle/');
                         }
 
-                        $configWidgetHandle = fopen('config/widget/'. $widgetName . '.yaml', 'w') or die('Cannot open file:  '.$widgetName); //implicitly creates file
+                        $configWidgetHandle = fopen('config/widget-bundle/'. $widgetName . '.yaml', 'w') or die('Cannot open file:  '.$widgetName); //implicitly creates file
                         fwrite($configWidgetHandle, $this->getDataConfigWidget());
 
                         $twigConfigHandle = fopen('config/packages/twig.yaml', 'a') or die('Cannot open file:  '.$widgetName); //implicitly creates file
@@ -141,19 +141,19 @@ class '. $widgetName .' extends AbstractWidget
     }
 
     private function getDataConfigWidget() {
-        return '#Here, you can pass values to your widget
+        return '#Here, you can pass values to your widget-bundle
 #This file have to write like your const WIDGET_NAME following to the extension ".yaml"
-widget:
+widget-bundle:
     #criteria:
     #    disable: false
     #orderBy:
     #    createdAt: DESC
     #limit: 3
 
-    #Desable widget
+    #Desable widget-bundle
     #enable: true
 
-    #Load Custom Css Files which have to be in "public/widget/
+    #Load Custom Css Files which have to be in "public/widget-bundle/
     loader:
         - css';
     }

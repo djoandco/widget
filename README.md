@@ -162,7 +162,7 @@ class HelperCommand extends Command
             '<?php
 namespace App\Widget;
 
-use Widget\Core\AbstractWidget;
+use Djoandco\WidgetBundle\Core\AbstractWidget;
 
 class '. $widgetName .' extends AbstractWidget
 {
